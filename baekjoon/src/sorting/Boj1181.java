@@ -40,6 +40,7 @@ public class Boj1181 {
             if (a.length() == b.length()) {
                 return a.compareTo(b);
             }
+//            정렬 기준값 반환
             return a.length() - b.length();
         });
 
