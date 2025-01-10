@@ -34,7 +34,7 @@ public class Boj1181 {
 
         // 중복 제거된 단어들을 리스트로 변환
         List<String> wordsList = new ArrayList<>(wordsSet);
-
+       
         // 정렬: 길이 기준 -> 길이가 같으면 사전순
         wordsList.sort((a, b) -> {
             if (a.length() == b.length()) {
