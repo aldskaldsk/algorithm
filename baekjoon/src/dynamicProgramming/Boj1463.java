@@ -1,65 +1,41 @@
 package dynamicProgramming;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
+
+//정수 X에 사용할 수 있는 연산은 다음과 같이 세 가지 이다.
+//X가 3으로 나누어 떨어지면, 3으로 나눈다.
+//X가 2로 나누어 떨어지면, 2로 나눈다.
+//1을 뺀다.
+//정수 N이 주어졌을 때, 위와 같은 연산 세 개를 적절히 사용해서 1을 만들려고 한다. 연산을 사용하는 횟수의 최솟값을 출력하시오.
 
 public class Boj1463 {
 	public static void main(String[] args) throws NumberFormatException, IOException {
+		
 		Scanner sc = new Scanner(System.in);
-		
-		int n = sc.nextInt();
-//		int i = 0;
-//		int cnt = 0;
-//		ArrayList<Integer> list = new ArrayList();
-//		list.add(n);
-//		
-//		while(!list.contains(1)) {
-//			if(list.get(i)%3 == 0) {
-//				list.add(list.get(i)/3);
-//				list.add(list.get(i)-1);
-//				if(cnt>0)
-//				cnt--;
-//			}
-//			else if(list.get(i)%2 ==0) {
-//				list.add(list.get(i)/2);
-//				list.add(list.get(i)-1);
-//				if(cnt>0)
-//				cnt--;
-//			}
-//			else {
-//				list.add(list.get(i)-1);				
-//			}
-//			i++;
-//			cnt++;
-//		}
-//		System.out.println(list);
-//		System.out.println(cnt);
-		
-		// DP 배열 선언
+        int n = sc.nextInt();
+        
+        // DP 배열 생성
         int[] dp = new int[n + 1];
         
-        // 초기값 설정
-        dp[1] = 0; // 1은 이미 1이므로 연산 횟수 0
-
-//        dp[i] 까지 도달하는 최소한의 연산 숫자를 갱신 
+        // DP 초기값
+        dp[1] = 0; // 1은 0번의 연산으로 1이 된다.
         
-        // Bottom-up 방식으로 DP 테이블 채우기
         for (int i = 2; i <= n; i++) {
-            // 기본적으로 i에서 1을 뺀 경우
+            // 기본적으로 1을 빼는 연산
             dp[i] = dp[i - 1] + 1;
-
-            // i가 2로 나누어 떨어지는 경우
+            
+            // 2로 나누어 떨어질 때
             if (i % 2 == 0) {
                 dp[i] = Math.min(dp[i], dp[i / 2] + 1);
             }
-
-            // i가 3으로 나누어 떨어지는 경우
+            
+            // 3으로 나누어 떨어질 때
             if (i % 3 == 0) {
                 dp[i] = Math.min(dp[i], dp[i / 3] + 1);
             }
         }
-
+        
         // 결과 출력
         System.out.println(dp[n]);
 	}
