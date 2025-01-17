@@ -23,7 +23,6 @@ public class Boj8958 {
 			System.out.println(getScore(arr[i]));
 		}
 		
-		
 	}
 
 	public static int getScore(String input) {
