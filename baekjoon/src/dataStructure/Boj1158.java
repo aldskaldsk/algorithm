@@ -14,24 +14,36 @@ import java.util.Scanner;
 
 public class Boj1158 {
 	
-	public static void main(String[] args) {		
-		Scanner sc = new Scanner(System.in);
-		
-		int n = sc.nextInt();
-		int k = sc.nextInt();
-		
-		ArrayList<Integer> q = new ArrayList<>();
-		
-		for(int i=0; i<=n; i++) {
-			q.add(i);
-		}
-	
-		int start = 0;
-		while(!q.isEmpty()) {
-			System.out.println(q.get(start+k));
-			start = start + k;
-		}
-	}
+	public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt(); // N명
+        int k = sc.nextInt(); // K번째
+
+        ArrayList<Integer> q = new ArrayList<>();
+
+        // 1번부터 N번까지 추가
+        for (int i = 1; i <= n; i++) {
+            q.add(i);
+        }
+
+//      출력할 값을 저장
+        StringBuilder result = new StringBuilder();
+        result.append("<");
+
+        int index = 0;
+        while (!q.isEmpty()) {
+            index = (index + k - 1) % q.size(); // K번째 사람 선택
+            result.append(q.remove(index)); // 제거
+
+            if (!q.isEmpty()) {
+                result.append(", ");
+            }
+        }
+
+        result.append(">\n");
+        System.out.print(result);
+    }
 	
 
 }
