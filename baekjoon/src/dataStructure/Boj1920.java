@@ -1,6 +1,6 @@
 package dataStructure;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 //N개의 정수 A[1], A[2], …, A[N]이 주어져 있을 때, 이 안에 X라는 정수가 존재하는지 알아내는 프로그램을 작성하시오.
@@ -16,26 +16,46 @@ public class Boj1920 {
 		Scanner sc = new Scanner(System.in);
 		
 		int n = sc.nextInt();
+		int[] arr = new int[n];
 		
-		ArrayList<Integer> listM = new ArrayList<Integer>();
-		
-//		입력 도중 오류제거를 위한 입력을 읽는 처리
 		for(int i=0; i<n; i++) {
-			sc.next();
+			arr[i] = sc.nextInt();
 		}
 		
-		int m = sc.nextInt();
+		 // 이진탐색을 위해 배열 정렬 
+        Arrays.sort(arr);
+
+        int m = sc.nextInt();
+        StringBuilder sb = new StringBuilder();
 		
-		for(int i=0; i<m; i++) {
-			listM.add(Integer.parseInt(sc.next()));
-		}
+
+        // 이진 탐색을 사용하여 값이 존재하는지 확인
+        for (int i = 0; i < m; i++) {
+            int target = sc.nextInt();
+            if (binarySearch(arr, target)) {
+                sb.append("1\n");
+            } else {
+                sb.append("0\n");
+            }
+        }
+
+        System.out.println(sb);
+	}
+	
+	public static boolean binarySearch(int[] arr, int target) {
 		
-//		n입력을 받은 1~n 까지의 숫자 배열 중 해당하는 지를 검사하므로 그 중 속하는 지를 검사
-//		->> 오답
-		for(int i=0; i<m; i++) {
-			if(listM.get(i)<1 || listM.get(i)>n)System.out.println(0);
-			else System.out.println(1);
-		}
+		  int start = 0, end = arr.length - 1;
+
+	        while (start <= end) {
+	            int mid = (start + end) / 2;
+	            if (arr[mid] == target) return true;
+//	            탐색대상이 중앙값보다 크다면 중앙값+1 부터 끝까지 재탐색
+	            if (arr[mid] < target) start = mid + 1;
+//	            탐색대상이 중앙값보다 작다면 처음부터 중앙값-1까지 재탐색
+	            else end = mid - 1;
+	        }
+
+	        return false;
 	}
 
 }
