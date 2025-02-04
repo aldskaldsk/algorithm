@@ -18,12 +18,18 @@ public class Boj1629 {
 		System.out.println(divideAndConquer(a, b, c));
 	}
 
-	public static int divideAndConquer(int a, int b, int c) {
-		if(b==0) return 1%c;
-		
-//		a의 b승을 a의 b/2 * a의 b/2로 분할해서 계산 ??
-		
-		
-		return 0;
+	public static long divideAndConquer(long a, long b, long c) {
+		long result = 1;
+        long base = a % c; // 초기값 설정 
+
+        while (b > 0) {
+            if (b % 2 == 1) { // 홀수이면 result에 base를 곱함
+                result = (result * base) % c;
+            }
+            base = (base * base) % c; // base를 제곱
+            b /= 2; // b를 반으로 줄임
+        }
+
+        return result;
 	}
 }
