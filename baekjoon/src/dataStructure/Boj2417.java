@@ -15,9 +15,18 @@ public class Boj2417 {
 	}
 
 	private static long binarySearch(long n) {
-		long q = (long) Math.sqrt(n);
-//		q의2승 ≥ n이므로 q의2승이<n 의 경우 1을 더해줌
-		if(q*q < n) return q+1;
-		return q;
+		long start = 0, end = (long) Math.pow(2, 32);
+		
+		while (start < end) {
+			long mid = (start + end) / 2;
+			
+			// mid^2과 n 비교
+			if (mid * mid >= n) {
+				end = mid; // mid가 정답이 될 가능성이 있으므로 end를 줄임
+			} else {
+				start = mid + 1; // mid가 너무 작으므로 start를 올림
+			}
+		}
+		return start; // while문을 나왔을 때 start가 최소 q값이 됨
 	}
 }
